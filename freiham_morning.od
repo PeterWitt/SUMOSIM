@@ -1,0 +1,24 @@
+$OR;D2
+* From-Time  To-Time
+0.00 13.00
+* Factor
+1.00
+* some
+* additional
+* comments
+         fh_living          fh_education        601
+         fh_living          p_trainstation      433
+         fh_living          mw_a96_out_out      305
+         fh_living          mw_a96_in_in        1252
+         fh_living          mw_a99_out          1000
+         fh_living          martinsried         269
+         fh_living          munich              1427
+         fh_living          germering           322
+         fh_education       fh_living           102
+         p_trainstation     fh_living           433
+         mw_a96_out_in      fh_living           170
+         mw_a96_in_out      fh_living           225
+         mw_a99_in          fh_living           391
+         martinsried        fh_living           74
+         munich             fh_living           623
+         germering          fh_living           111

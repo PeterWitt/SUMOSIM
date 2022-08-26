@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-29 14:06:27 by Eclipse SUMO duarouter Version 1.14.1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="osm-test.net.xml"/>
+        <route-files value="routes_file.xsd"/>
+    </input>
+
+    <output>
+        <output-file value="test.rou.xml"/>
+    </output>
+
+    <report>
+        <ignore-errors value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" length="5.00" maxSpeed="70.00" accel="0.8" decel="4.5" sigma="0.5"/>
+    <vehicle id="car1" type="type1" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="1.80" probability="1.00000000" edges="-1024679358"/>
+        </routeDistribution>
+    </vehicle>
+    <vType id="taxi" vClass="taxi" personCapacity="4">
+        <param key="device.taxi.dropOffDuration" value="20"/>
+        <param key="device.taxi.parking" value="false"/>
+        <param key="device.taxi.pickUpDuration" value="10"/>
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+    <vehicle id="taxi1" type="taxi" depart="0.00" color="blue">
+        <routeDistribution last="0">
+            <route cost="1.80" probability="1.00000000" edges="-1024679358"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="taxi2" type="taxi" depart="0.00" color="blue">
+        <routeDistribution last="0">
+            <route cost="1.80" probability="1.00000000" edges="-1024679358"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="taxi3" type="taxi" depart="0.00" color="blue">
+        <routeDistribution last="0">
+            <route cost="1.80" probability="1.00000000" edges="-1024679358"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="taxi4" type="taxi" depart="0.00" color="blue">
+        <routeDistribution last="0">
+            <route cost="1.80" probability="1.00000000" edges="-1024679358"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="taxi5" type="taxi" depart="0.00" color="blue">
+        <routeDistribution last="0">
+            <route cost="1.80" probability="1.00000000" edges="-1024679358"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="taxi6" type="taxi" depart="0.00" color="blue">
+        <routeDistribution last="0">
+            <route cost="1.80" probability="1.00000000" edges="-1024679358"/>
+        </routeDistribution>
+    </vehicle>
+    <person id="foo.0" depart="0.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="random.0" depart="0.00">
+        <ride from="504566810#1" to="-119158885" lines="taxi"/>
+    </person>
+    <vehicle id="trip3.0" type="type1" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.0" type="type1" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.0" type="type1" depart="1.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.1" type="type1" depart="1.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.0" type="type1" depart="1.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.1" type="type1" depart="1.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.0" type="type1" depart="1.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.0" type="type1" depart="2.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.2" type="type1" depart="2.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.1" type="type1" depart="2.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.1" type="type1" depart="3.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.1" type="type1" depart="3.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.2" type="type1" depart="3.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.1" type="type1" depart="3.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.2" type="type1" depart="3.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.3" type="type1" depart="4.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.2" type="type1" depart="4.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.3" type="type1" depart="4.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.2" type="type1" depart="5.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.4" type="type1" depart="5.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.3" type="type1" depart="5.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.4" type="type1" depart="5.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.5" type="type1" depart="6.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.3" type="type1" depart="7.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.5" type="type1" depart="7.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.3" type="type1" depart="7.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.2" type="type1" depart="8.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.4" type="type1" depart="8.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.6" type="type1" depart="8.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.4" type="type1" depart="8.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.6" type="type1" depart="9.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.5" type="type1" depart="9.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <person id="foo.1" depart="10.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <vehicle id="trip1.4" type="type1" depart="10.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.3" type="type1" depart="10.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.7" type="type1" depart="10.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.5" type="type1" depart="10.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.4" type="type1" depart="11.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.6" type="type1" depart="11.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.5" type="type1" depart="12.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.5" type="type1" depart="12.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.7" type="type1" depart="12.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.6" type="type1" depart="13.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.8" type="type1" depart="13.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.6" type="type1" depart="14.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.8" type="type1" depart="14.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.6" type="type1" depart="14.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.7" type="type1" depart="15.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip4.9" type="type1" depart="15.00">
+        <routeDistribution last="0">
+            <route cost="184.36" probability="1.00000000" edges="-E69 -E66 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip5.9" type="type1" depart="15.00">
+        <routeDistribution last="0">
+            <route cost="219.81" probability="1.00000000" edges="-E61 E54 E55 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.7" type="type1" depart="15.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.8" type="type1" depart="16.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.7" type="type1" depart="16.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.7" type="type1" depart="16.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.8" type="type1" depart="16.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.8" type="type1" depart="17.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip1.9" type="type1" depart="18.00">
+        <routeDistribution last="0">
+            <route cost="216.17" probability="1.00000000" edges="E46 E47 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.8" type="type1" depart="18.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip6.9" type="type1" depart="18.00">
+        <routeDistribution last="0">
+            <route cost="244.04" probability="1.00000000" edges="-E64 E50 -E44 -E43 -E42 -E41 -E40 E390 3636462 280263701 100871362 12811203 100871370#1 100871363 100871352 100871343 100871371 146070306 32456942#0 32456942#1 32456942#2 29264205 327070360 289441726"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip2.9" type="type1" depart="19.00">
+        <routeDistribution last="0">
+            <route cost="216.95" probability="1.00000000" edges="E65 -E44 -E43 -E42 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="trip3.9" type="type1" depart="19.00">
+        <routeDistribution last="0">
+            <route cost="213.54" probability="1.00000000" edges="-E63 E52 E53 E54 E55 -E41 -E40 E66 E67 E74 -464738721 407578432#1 -341648794#0 -2385472#1 -326348924#1 -341900052 -162967452 141620517#0 141620517#1-AddedOnRampEdge 141620517#1 100871360 100871358 198358388 280269658 541602725"/>
+        </routeDistribution>
+    </vehicle>
+    <person id="foo.2" depart="20.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.3" depart="30.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.4" depart="40.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.5" depart="50.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.6" depart="60.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.7" depart="70.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.8" depart="80.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.9" depart="90.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.10" depart="100.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.11" depart="110.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.12" depart="120.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.13" depart="130.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.14" depart="140.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.15" depart="150.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.16" depart="160.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.17" depart="170.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.18" depart="180.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.19" depart="190.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.20" depart="200.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.21" depart="210.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.22" depart="220.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.23" depart="230.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.24" depart="240.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.25" depart="250.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="random.1" depart="250.00">
+        <ride from="504566810#1" to="-119158885" lines="taxi"/>
+    </person>
+    <person id="foo.26" depart="260.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.27" depart="270.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.28" depart="280.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.29" depart="290.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.30" depart="300.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.31" depart="310.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.32" depart="320.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.33" depart="330.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.34" depart="340.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.35" depart="350.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.36" depart="360.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.37" depart="370.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.38" depart="380.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.39" depart="390.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.40" depart="400.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.41" depart="410.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.42" depart="420.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.43" depart="430.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.44" depart="440.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.45" depart="450.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.46" depart="460.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.47" depart="470.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.48" depart="480.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.49" depart="490.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.50" depart="500.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="random.2" depart="500.00">
+        <ride from="504566810#1" to="-119158885" lines="taxi"/>
+    </person>
+    <person id="foo.51" depart="510.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.52" depart="520.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.53" depart="530.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.54" depart="540.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.55" depart="550.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.56" depart="560.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.57" depart="570.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.58" depart="580.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.59" depart="590.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.60" depart="600.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.61" depart="610.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.62" depart="620.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.63" depart="630.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.64" depart="640.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.65" depart="650.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.66" depart="660.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.67" depart="670.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.68" depart="680.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.69" depart="690.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.70" depart="700.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.71" depart="710.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.72" depart="720.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.73" depart="730.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.74" depart="740.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.75" depart="750.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="random.3" depart="750.00">
+        <ride from="504566810#1" to="-119158885" lines="taxi"/>
+    </person>
+    <person id="foo.76" depart="760.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.77" depart="770.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.78" depart="780.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.79" depart="790.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.80" depart="800.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.81" depart="810.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.82" depart="820.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.83" depart="830.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.84" depart="840.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.85" depart="850.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.86" depart="860.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.87" depart="870.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.88" depart="880.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.89" depart="890.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.90" depart="900.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.91" depart="910.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.92" depart="920.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.93" depart="930.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.94" depart="940.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.95" depart="950.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.96" depart="960.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.97" depart="970.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.98" depart="980.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+    <person id="foo.99" depart="990.00">
+        <personTrip from="772719704#4" to="-721302669#2" walkFactor="0.75" costs="145.13"/>
+        <ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+    </person>
+</routes>

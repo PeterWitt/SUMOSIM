@@ -1,0 +1,44 @@
+<routes>
+    <vType id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
+	
+	<vType id="taxi" vClass="taxi" personCapacity="4">
+		<param key="has.taxi.device" value="true"/>
+		<param key="device.taxi.pickUpDuration" value="10"/>
+        <param key="device.taxi.dropOffDuration" value="20"/>
+        <param key="device.taxi.parking" value="false"/>
+	</vType>
+	
+	<route id="route1" edges="-1024679358"/>
+	
+	<interval begin="0" end="3600">
+		<flow id="trip1" depart="0" from="E46" to="541602725" type="type1" number="10" probability="0.5"/>
+		<flow id="trip2" depart="0" from="E65" to="541602725" type="type1" number="10" probability="0.5"/>
+		<flow id="trip3" depart="0" from="-E63" to="541602725" type="type1" number="10" probability="0.5"/>
+		
+		<flow id="trip4" depart="0" from="-E69" to="289441726" type="type1" number="10" probability="0.5"/>
+		<flow id="trip5" depart="0" from="-E61" to="289441726" type="type1" number="10" probability="0.5"/>
+		<flow id="trip6" depart="0" from="-E64" to="289441726" type="type1" number="10" probability="0.5"/>
+	</interval>
+    
+	
+	<vehicle id="car1" type="type1" route="route1" depart="0" />
+	
+	<vehicle id="taxi1" type="taxi" route="route1" color="0,0,1" depart="0" />
+	<vehicle id="taxi2" route="route1" color="0,0,1" depart="0" type="taxi"/>
+	<vehicle id="taxi3" route="route1" color="0,0,1" depart="0" type="taxi"/>
+	<vehicle id="taxi4" route="route1" color="0,0,1" depart="0" type="taxi"/>
+	<vehicle id="taxi5" route="route1" color="0,0,1" depart="0" type="taxi"/>
+	<vehicle id="taxi6" route="route1" color="0,0,1" depart="0" type="taxi"/>
+	
+		
+	<personFlow id="foo" begin="0" end="1000" number="100">
+		<walk from="772719704#4" to="-721302669#2"/>
+		<ride from="-721302669#2" to="E50" lines="taxi" group="g0"/>
+	</personFlow>
+	
+	<personFlow id="random" begin="0" end="1000" number="4">
+		<ride from="504566810#1" to="-119158885" lines="taxi"/>
+	</personFlow>
+	
+	
+</routes>
