@@ -1,7 +1,6 @@
 from audioop import add
 import os 
 import sys
-import sumolib
 import traci
 import numpy
 
