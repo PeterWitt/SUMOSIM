@@ -2,6 +2,7 @@ from audioop import add
 import os 
 import sys
 import numpy
+import traci
 
 def createCust(time: int, custCount: int, pos:float, origin:str, dest:str):
     traci.person.add(f"cust{custCount}",origin, pos, time+1, "DEFAULT_PEDTYPE")
