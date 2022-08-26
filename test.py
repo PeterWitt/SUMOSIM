@@ -1,7 +1,6 @@
 from audioop import add
 import os 
 import sys
-import traci
 import numpy
 
 def createCust(time: int, custCount: int, pos:float, origin:str, dest:str):
