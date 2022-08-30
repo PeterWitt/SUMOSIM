@@ -1,17 +1,19 @@
 import os
-from pickle import FALSE, TRUE
-from sqlite3 import connect 
 import sys
 import traci
-import numpy
 from flask import Flask, request
 from threading import Thread
+from flask_socketio import SocketIO
+from flask_socketio import send, emit
 
 ASSETS_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app, async_mode="threading")
 
 # True if user launches the app
 connection_established = False
+# Set to a value that user selected in the app
 destitnation_set = ''
 
 # START of functions & variables related to SUMO simulation
@@ -25,9 +27,7 @@ def createCust(time: int, custCount: int, pos:float, origin:str):
 # If destination is choosen, function adds Stage to the called costumer 
 def createCustDest(custName: str, dest: str):
     traci.person.appendDrivingStage(custName, dest, "taxi")
-    return TRUE
-
-
+    return True
 
 def createShuttle(time, num):
     traci.vehicle.add(f'taxiV{num}', 'depot', typeID='shuttle', depart=f'{time+2}', line='taxi')
@@ -59,7 +59,7 @@ destList = ["E39", "-721302669#2", "-513657853#0", "143578411#1"]
 # END of functions & variables related to SUMO simulation
 
 # START of Flask API
-
+@socketio.on("track_vehicle")
 def start_sumo_background_task():
     global connection_established
     global destination_set
@@ -80,7 +80,6 @@ def start_sumo_background_task():
     managed_cust = []
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        
         if connection_established:
             customer_info = dict()
             customer_info["cust_name"] = createCust(step+1, count, 190, '-E42')
@@ -95,22 +94,22 @@ def start_sumo_background_task():
             for cust_info in managed_cust:
                 if not cust_info["dest_set"]:
                     traci.person.appendWaitingStage(cust_info["cust_name"], 1, description='waiting', stopID='')
+                    
+        if step == 20:
+            createShuttle(step, count)
+            
         if step%10 == 0:
             for cust_info in managed_cust:
                 if cust_info["dest_set"]:
-                    if traci.person.getLaneID(cust_info["cust_name"]) != traci.person.getEdges(cust_info["cust_name"])[1]:
+                    cust_dest = traci.person.getEdges(cust_info["cust_name"])
+                    if traci.person.getLaneID(cust_info["cust_name"]) != cust_dest[1]:
                         x, y = traci.person.getPosition(managed_cust[0]["cust_name"])
                         lon, lat = traci.simulation.convertGeo(x, y)
-        
-                    
-        #if step % 130 == 0 :
-        #    createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
-        #    print(count)
-        #    count += 1
-        #if 125 < step and step < 135:
-        #    createShuttle(step, count) 
-        #    count += 1 
-
+                        data = dict()
+                        data["latitude"] = lat
+                        data["longitude"] = lon
+                        emit("track_vehicle", data, broadcast=True)
+        count += 1
         step += 1
 
     traci.close()
@@ -132,4 +131,5 @@ if __name__ == "__main__":
     thread = Thread(target=start_sumo_background_task)
     thread.daemon = True
     thread.start()
-    app.run('0.0.0.0', debug=True)
+    socketio.run(app, host='0.0.0.0', debug=True, use_reloader=False)
+    #app.run('0.0.0.0', debug=True, use_reloader=False)
