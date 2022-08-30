@@ -1,4 +1,5 @@
 import os
+from pickle import FALSE, TRUE
 from sqlite3 import connect 
 import sys
 import traci
@@ -11,11 +12,22 @@ app = Flask(__name__)
 
 # True if user launches the app
 connection_established = False
+destination_set = ''
 
 # START of functions & variables related to SUMO simulation
-def createCust(time: int, custCount: int, pos:float, origin:str, dest:str):
+# Creation of customer. Every Customer is called Cust and the number of created customers, i.e. cust1 
+def createCust(time: int, custCount: int, pos:float, origin:str):
     traci.person.add(f"cust{custCount}",origin, pos, time+1, "DEFAULT_PEDTYPE")
-    traci.person.appendDrivingStage(f"cust{custCount}", dest, "taxi")
+    #Customer waits, Stage will be appended by different function 
+    traci.person.appendWaitingStage(f"cust{custCount}", 1, description='waiting', stopID='')
+    return f"cust{custCount}"   
+
+# If destination is choosen, function adds Stage to the called costumer 
+def createCustDest(custName: str, dest: str):
+    traci.person.appendDrivingStage(custName, dest, "taxi")
+    return TRUE
+
+
 
 def createShuttle(time, num):
     traci.vehicle.add(f'taxiV{num}', 'depot', typeID='shuttle', depart=f'{time+2}', line='taxi')
@@ -56,15 +68,31 @@ def start_sumo_background_task():
         sys.exit("please declare environment variable 'SUMO_HOME'")
 
     sumoBinary = "C:\Program Files (x86)\Eclipse\Sumo\\bin\sumo-gui"
-    sumoCmd = [sumoBinary, "-c", "..\SUMOSIM\\test.sumocfg", "--tripinfo-output", "tripinfos.xml",
+    sumoCmd = [sumoBinary, "-c", ".\..\test.sumocfg", "--tripinfo-output", "tripinfos.xml",
         "--device.taxi.dispatch-algorithm", "greedy", "--start", "true"]
 
     traci.start(sumoCmd)
     step = 0
     count = 1
+    managed_cust = []
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         
+        if connection_established:
+            customer_info = dict()
+            customer_info["cust_name"] = createCust(step+1, count, 190, '-E42')
+            customer_info["dest_set"] = FALSE
+            managed_cust.append(customer_info)
+            connection_established = FALSE
+        if destination_set != '':
+            createCustDest(managed_cust[0]["cust_name"], destination_set)
+            managed_cust[0]["dest_set"] = TRUE
+            destination_set = ''
+        else:
+            for cust_info in managed_cust:
+                if not cust_info["dest_set"]:
+                    traci.person.appendWaitingStage(cust_info["cust_name"], 1, description='waiting', stopID='')
+                    
         #if step % 130 == 0 :
         #    createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
         #    print(count)
