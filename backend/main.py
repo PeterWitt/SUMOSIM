@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # True if user launches the app
 connection_established = False
-destination_set = ''
+destitnation_set = ''
 
 # START of functions & variables related to SUMO simulation
 # Creation of customer. Every Customer is called Cust and the number of created customers, i.e. cust1 
@@ -61,6 +61,9 @@ destList = ["E39", "-721302669#2", "-513657853#0", "143578411#1"]
 # START of Flask API
 
 def start_sumo_background_task():
+    global connection_established
+    global destination_set
+    
     if 'SUMO_HOME' in os.environ:
         tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
         sys.path.append(tools)
@@ -81,17 +84,24 @@ def start_sumo_background_task():
         if connection_established:
             customer_info = dict()
             customer_info["cust_name"] = createCust(step+1, count, 190, '-E42')
-            customer_info["dest_set"] = FALSE
+            customer_info["dest_set"] = False
             managed_cust.append(customer_info)
-            connection_established = FALSE
+            connection_established = False
         if destination_set != '':
             createCustDest(managed_cust[0]["cust_name"], destination_set)
-            managed_cust[0]["dest_set"] = TRUE
+            managed_cust[0]["dest_set"] = True
             destination_set = ''
         else:
             for cust_info in managed_cust:
                 if not cust_info["dest_set"]:
                     traci.person.appendWaitingStage(cust_info["cust_name"], 1, description='waiting', stopID='')
+        if step%10 == 0:
+            for cust_info in managed_cust:
+                if cust_info["dest_set"]:
+                    if traci.person.getLaneID(cust_info["cust_name"]) != traci.person.getEdges(cust_info["cust_name"])[1]:
+                        x, y = traci.person.getPosition(managed_cust[0]["cust_name"])
+                        lon, lat = traci.simulation.convertGeo(x, y)
+        
                     
         #if step % 130 == 0 :
         #    createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
