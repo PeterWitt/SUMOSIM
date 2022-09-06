@@ -1,18 +1,20 @@
 import os
-from pickle import FALSE, TRUE
-from sqlite3 import connect 
 import sys
 import traci
-import numpy
 from flask import Flask, request
 from threading import Thread
+from flask_socketio import SocketIO, emit, send
 
 ASSETS_DIR = os.path.dirname(os.path.abspath(__file__))
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
 
 # True if user launches the app
 connection_established = False
-destitnation_set = ''
+# Set to a value that user selected in the app
+destination_set = ""
 
 # START of functions & variables related to SUMO simulation
 # Creation of customer. Every Customer is called Cust and the number of created customers, i.e. cust1 
@@ -20,14 +22,13 @@ def createCust(time: int, custCount: int, pos:float, origin:str):
     traci.person.add(f"cust{custCount}",origin, pos, time+1, "DEFAULT_PEDTYPE")
     #Customer waits, Stage will be appended by different function 
     traci.person.appendWaitingStage(f"cust{custCount}", 1, description='waiting', stopID='')
+    traci.person.setColor(f"cust{custCount}", (128, 0, 0, 0))
     return f"cust{custCount}"   
 
 # If destination is choosen, function adds Stage to the called costumer 
 def createCustDest(custName: str, dest: str):
     traci.person.appendDrivingStage(custName, dest, "taxi")
-    return TRUE
-
-
+    return True
 
 def createShuttle(time, num):
     traci.vehicle.add(f'taxiV{num}', 'depot', typeID='shuttle', depart=f'{time+2}', line='taxi')
@@ -44,17 +45,13 @@ def custInfo(custName: str):
         if custVeh in traci.vehicle.getIDList():
             print(traci.vehicle.getDrivingDistance(custVeh, custDest[1], 0.0))
 
-def shuttleInfo(shuttle_name: str):
-     if traci.vehicle.getParameter(shuttle_name, "device.taxi.state") == 0:
-            num = numpy.random.randint(1, 4)
-            traci.vehicle.changeTarget(shuttle_name, f"depot{num}")
-        
-#    if shuttleName in traci.vehicle.getIDList():
-#        shuttleCust = traci.vehicle.getParameter(shuttleName, "device.taxi.currentCustomers")
-#        print(shuttleCust, end="")
-#        if shuttleCust in traci.person.getIDList():
-#            custDest = traci.person.getEdges(shuttleCust, )
-#           print(traci.vehicle.getDrivingDistance(shuttleName, custDest[1], 0.0))
+def shuttleInfo(shuttleName: str):
+    if shuttleName in traci.vehicle.getIDList():
+        shuttleCust = traci.vehicle.getParameter(shuttleName, "device.taxi.currentCustomers")
+        print(shuttleCust, end="")
+        if shuttleCust in traci.person.getIDList():
+            custDest = traci.person.getEdges(shuttleCust, )
+            print(traci.vehicle.getDrivingDistance(shuttleName, custDest[1], 0.0))
         
 
 originList = ["-E65", "-E46", "E42", "-E55", "E57", "E40", "-E39.532", "-E69", "721302669#2", "-407581698#2", "407568055#4", "504565992#2"]
@@ -64,11 +61,11 @@ destList = ["E39", "-721302669#2", "-513657853#0", "143578411#1"]
 # END of functions & variables related to SUMO simulation
 
 # START of Flask API
-
+@socketio.on("track_vehicle")
 def start_sumo_background_task():
     global connection_established
     global destination_set
-    
+
     if 'SUMO_HOME' in os.environ:
         tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
         sys.path.append(tools)
@@ -76,8 +73,8 @@ def start_sumo_background_task():
         sys.exit("please declare environment variable 'SUMO_HOME'")
 
     sumoBinary = "C:\Program Files (x86)\Eclipse\Sumo\\bin\sumo-gui"
-    sumoCmd = [sumoBinary, "-c", ".\..\test.sumocfg", "--tripinfo-output", "tripinfos.xml",
-        "--delay", "360.0", "--device.taxi.dispatch-algorithm", "greedy", "--start", "true"]
+    sumoCmd = [sumoBinary, "-c", "..\SUMOSIM\\test.sumocfg", "--tripinfo-output", "tripinfos.xml",
+        "--device.taxi.dispatch-algorithm", "greedy", "--start", "true"]
 
     traci.start(sumoCmd)
     step = 0
@@ -86,7 +83,6 @@ def start_sumo_background_task():
     prt_shuttle = []
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        
         if connection_established:
             customer_info = dict()
             customer_info["cust_name"] = createCust(step+1, count, 190, '-E42')
@@ -94,25 +90,28 @@ def start_sumo_background_task():
             managed_cust.append(customer_info)
             connection_established = False
         if destination_set != '':
+            print("destination_set: ", destination_set)
             createCustDest(managed_cust[0]["cust_name"], destination_set)
             managed_cust[0]["dest_set"] = True
             destination_set = ''
         else:
             for cust_info in managed_cust:
                 if not cust_info["dest_set"]:
+                    #print(cust_info)
                     traci.person.appendWaitingStage(cust_info["cust_name"], 1, description='waiting', stopID='')
+
+        if step == 20:
+            createShuttle(step, count)
+
         if step%10 == 0:
             for cust_info in managed_cust:
                 if cust_info["dest_set"]:
-                    if traci.person.getLaneID(cust_info["cust_name"]) != traci.person.getEdges(cust_info["cust_name"])[1]:
+                    cust_dest = traci.person.getEdges(cust_info["cust_name"])
+                    print("cust_dest", cust_dest)
+                    if traci.person.getLaneID(cust_info["cust_name"]) != cust_dest[1]:
                         x, y = traci.person.getPosition(managed_cust[0]["cust_name"])
                         lon, lat = traci.simulation.convertGeo(x, y)
         
-        if step == 20:
-            prt_shuttle.append(createShuttle(step, count))
-        
-        for shuttle in prt_shuttle:
-            shuttleInfo(shuttle) 
                     
         #if step % 130 == 0 :
         #    createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
@@ -121,26 +120,39 @@ def start_sumo_background_task():
         #if 125 < step and step < 135:
         #    createShuttle(step, count) 
         #    count += 1 
-        count += 1
+
         step += 1
 
     traci.close()
 
 @app.route('/establish-connection', methods=['POST'])
 def establish_connection():
+    global connection_established
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         json = request.json
         if json["connectionEstablished"] == 'true':
             connection_established = True
-            print(connection_established)
         return json
     else:
         return 'Content-Type not supported!'
 
+@app.route('/set-destination', methods=['POST'])
+def set_destination():
+    global destination_set
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        if json["destinationSet"] != '':
+            destination_set = json["destinationSet"]
+            print(destination_set)
+        return json
+    else:
+        return 'Content-Type not supported!'
 
 if __name__ == "__main__":
     thread = Thread(target=start_sumo_background_task)
     thread.daemon = True
     thread.start()
-    app.run('0.0.0.0', debug=True)
+    socketio.run(app, host='0.0.0.0', debug=True, use_reloader=False)
+    #app.run('0.0.0.0', debug=True, use_reloader=False)
