@@ -20,6 +20,12 @@
         <device.rerouting.adaptation-interval value="10"/>
     </routing>
 
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="greedy" />
+        <device.taxi.dispatch-period value="30" />
+        <device.taxi.idle-algorithm value="stop" />
+    </taxi_device>
+
     <report>
         <verbose value="true"/>
         <duration-log.statistics value="true"/>

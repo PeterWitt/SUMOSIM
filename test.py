@@ -11,7 +11,8 @@ def createCust(time: int, custCount: int, pos:float, origin:str, dest:str):
 
 
 def createShuttle(time, num):
-    traci.vehicle.add(f'taxiV{num}', 'depot', typeID='shuttle', depart=f'{time+2}', line='taxi')
+    traci.vehicle.add(f'taxiV{num}', 'depot', typeID='shuttle', depart=f'{time}', line='taxi')
+    return f'taxiV{num}'
 
 def custInfo(custName: str):
     if custName in traci.person.getIDList():
@@ -24,13 +25,40 @@ def custInfo(custName: str):
         if custVeh in traci.vehicle.getIDList():
             print(traci.vehicle.getDrivingDistance(custVeh, custDest[1], 0.0))
 
-def shuttleInfo(shuttleName: str):
-    if shuttleName in traci.vehicle.getIDList():
-        shuttleCust = traci.vehicle.getParameter(shuttleName, "device.taxi.currentCustomers")
-        print(shuttleCust, end="")
-        if shuttleCust in traci.person.getIDList():
-            custDest = traci.person.getEdges(shuttleCust, )
-            print(traci.vehicle.getDrivingDistance(shuttleName, custDest[1], 0.0))
+def shuttleInfo(shuttle_dict: str):
+    print(shuttle_dict["shuttle_name"] + ": " + traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.state") + str(shuttle_dict["reroute"]))
+    if int(traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.state")) == 0 and str(shuttle_dict["reroute"]) == 'False':
+        num = numpy.random.randint(1, 4)
+        traci.vehicle.changeTarget(shuttle_dict["shuttle_name"], f"depot{num}")
+        shuttle_dict["reroute"] = True
+        print("Shuttle wurde gereroutet")
+    if int(traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.state")) != 0 and str(shuttle_dict["reroute"]) == 'True':
+        shuttle_dict["reroute"] = False
+        print("Shuttle rerouting wurde aufgehoben")
+
+
+
+elif method == 'park_in_depot':  # TODO: only works for one hard coded depot right now
+        # unoccupied vehicles fo back to the depot
+        fleet = traci.vehicle.getTaxiFleet(0)
+        stops = traci.parkingarea.getIDList()
+        depot = [stop for stop in stops if 'depot' in stop]
+        for taxi in fleet:
+            if not traci.vehicle.isStoppedParking(taxi):
+                try:
+                    traci.vehicle.changeTarget(taxi, traci.lane.getEdgeID(traci.parkingarea.getLaneID('depot')))
+                    traci.vehicle.setParkingAreaStop(taxi, 'depot', duration=999999, flags=1)
+                except traci.exceptions.TraCIException as e:
+                    print(e)
+                    continue
+
+        
+#    if shuttleName in traci.vehicle.getIDList():
+#        shuttleCust = traci.vehicle.getParameter(shuttleName, "device.taxi.currentCustomers")
+#        print(shuttleCust, end="")
+#        if shuttleCust in traci.person.getIDList():
+#            custDest = traci.person.getEdges(shuttleCust, )
+#           print(traci.vehicle.getDrivingDistance(shuttleName, custDest[1], 0.0))
         
 
     
@@ -58,20 +86,43 @@ sumoBinary = "C:\Program Files (x86)\Eclipse\Sumo\\bin\sumo-gui"
 sumoCmd = [sumoBinary, "-c", "test.sumocfg", "--tripinfo-output", "tripinfos.xml",
              "--device.taxi.dispatch-algorithm", "greedy",]
 
+traci.start([sumoBinary, "-c", sumocfg, "--collision.action=teleport",
+                 "--device.taxi.idle-algorithm=randomCircling", "--persontrip.transfer.walk-taxi=ptStops",
+                 "--persontrip.transfer.taxi-walk=ptStops",  # TODO why do persons still leave outside PT stops?
+                 "--tripinfo-output=" + tripinfo_name,
+                 "--statistic-output=" + stats_name,
+                 "--device.taxi.dispatch-algorithm=" + disp_strat, "--device.taxi.dispatch-period=10"])
+
+
 traci.start(sumoCmd)
 step = 0
 count = 1
+prt_shuttle = []
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 
-    if step % 130 == 0 :
-        createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
-        count += 1
-    if 125 < step and step < 135:
-        createShuttle(step, count) 
-        count += 1 
+    # if step % 130 == 0 :
+    #    createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
+    #    count += 1
+    #if 125 < step and step < 135:
+    #    createShuttle(step, count) 
+    #    count += 1 
+    for shuttle in prt_shuttle:
+        shuttleInfo(shuttle) 
 
-    shuttleInfo("taxiV2")
+    if step == 25:
+        for i in range(80):
+            createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])]) 
+            count += 1 
+    if step == 20:
+        for i in range(20):
+            prt_temp = dict()
+            prt_temp["shuttle_name"] = createShuttle(step, count)
+            prt_temp["reroute"] = False
+            prt_shuttle.append(prt_temp)
+            count += 1 
+        
+    
 
     step += 1
 

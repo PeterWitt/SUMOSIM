@@ -31,6 +31,7 @@ def createCustDest(custName: str, dest: str):
 
 def createShuttle(time, num):
     traci.vehicle.add(f'taxiV{num}', 'depot', typeID='shuttle', depart=f'{time+2}', line='taxi')
+    return f'taxiV{num}'
 
 def custInfo(custName: str):
     if custName in traci.person.getIDList():
@@ -43,13 +44,17 @@ def custInfo(custName: str):
         if custVeh in traci.vehicle.getIDList():
             print(traci.vehicle.getDrivingDistance(custVeh, custDest[1], 0.0))
 
-def shuttleInfo(shuttleName: str):
-    if shuttleName in traci.vehicle.getIDList():
-        shuttleCust = traci.vehicle.getParameter(shuttleName, "device.taxi.currentCustomers")
-        print(shuttleCust, end="")
-        if shuttleCust in traci.person.getIDList():
-            custDest = traci.person.getEdges(shuttleCust, )
-            print(traci.vehicle.getDrivingDistance(shuttleName, custDest[1], 0.0))
+def shuttleInfo(shuttle_name: str):
+     if traci.vehicle.getParameter(shuttle_name, "device.taxi.state") == 0:
+            num = numpy.random.randint(1, 4)
+            traci.vehicle.changeTarget(shuttle_name, f"depot{num}")
+        
+#    if shuttleName in traci.vehicle.getIDList():
+#        shuttleCust = traci.vehicle.getParameter(shuttleName, "device.taxi.currentCustomers")
+#        print(shuttleCust, end="")
+#        if shuttleCust in traci.person.getIDList():
+#            custDest = traci.person.getEdges(shuttleCust, )
+#           print(traci.vehicle.getDrivingDistance(shuttleName, custDest[1], 0.0))
         
 
 originList = ["-E65", "-E46", "E42", "-E55", "E57", "E40", "-E39.532", "-E69", "721302669#2", "-407581698#2", "407568055#4", "504565992#2"]
@@ -72,12 +77,13 @@ def start_sumo_background_task():
 
     sumoBinary = "C:\Program Files (x86)\Eclipse\Sumo\\bin\sumo-gui"
     sumoCmd = [sumoBinary, "-c", ".\..\test.sumocfg", "--tripinfo-output", "tripinfos.xml",
-        "--device.taxi.dispatch-algorithm", "greedy", "--start", "true"]
+        "--delay", "360.0", "--device.taxi.dispatch-algorithm", "greedy", "--start", "true"]
 
     traci.start(sumoCmd)
     step = 0
     count = 1
     managed_cust = []
+    prt_shuttle = []
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         
@@ -102,6 +108,11 @@ def start_sumo_background_task():
                         x, y = traci.person.getPosition(managed_cust[0]["cust_name"])
                         lon, lat = traci.simulation.convertGeo(x, y)
         
+        if step == 20:
+            prt_shuttle.append(createShuttle(step, count))
+        
+        for shuttle in prt_shuttle:
+            shuttleInfo(shuttle) 
                     
         #if step % 130 == 0 :
         #    createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
@@ -110,7 +121,7 @@ def start_sumo_background_task():
         #if 125 < step and step < 135:
         #    createShuttle(step, count) 
         #    count += 1 
-
+        count += 1
         step += 1
 
     traci.close()
