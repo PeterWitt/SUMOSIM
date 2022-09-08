@@ -1,14 +1,19 @@
 <additional>
-    <vType id="shuttle" vClass="taxi" accel="0.8" decel="4.5" sigma="0.99" length="5" maxSpeed="70" color="1,1,0">
+    <vType id="shuttle" vClass="taxi" accel="2.5" decel="4.5" sigma="0" length="2.5" width="1" maxSpeed="70" color="1,0,0">
         <param key="has.taxi.device" value="true"/>
         <param key="device.taxi.pickUpDuration" value="0"/>
         <param key="device.taxi.dropOffDuration" value="60"/>
-        <param key="device.taxi.parking" value="true"/>
+        <param key="device.taxi.parking" value="false"/>
     </vType>
 
     <routes>
         <route id="depot" color="1,1,0" edges="depot2"/>
     </routes>
+
+    <parkingArea id="depot_park2" lane="depot2_0" startPos="1" roadsideCapacity="20" angle="90"/>
+    <parkingArea id="depot_park4" lane="depot4_0" startPos="1" roadsideCapacity="20" angle="90"/>
+    <parkingArea id="depot_park5" lane="depot5_0" startPos="1" roadsideCapacity="20" angle="90"/>
+    <parkingArea id="depot_park1" lane="depot1_0" startPos="1" roadsideCapacity="20" angle="90"/>
 
 </additional>
 

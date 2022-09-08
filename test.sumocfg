@@ -21,8 +21,8 @@
     </routing>
 
     <taxi_device>
-        <device.taxi.dispatch-algorithm value="greedy" />
-        <device.taxi.dispatch-period value="30" />
+        <device.taxi.dispatch-algorithm value="greedyClosest" />
+        <device.taxi.dispatch-period value="60" />
         <device.taxi.idle-algorithm value="stop" />
     </taxi_device>
 
@@ -35,5 +35,9 @@
     <gui_only>
         <gui-settings-file value="osm.view.xml"/>
     </gui_only>
-
+<!--
+    <netedit>
+        <additional-files value="net_additional.xml"/>
+    </netedit>
+-->
 </configuration>
