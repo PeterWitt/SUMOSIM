@@ -1,8 +1,12 @@
 <tazs>
     <taz id="fh_living" edges="-E65 E65 -E45 E45 -E46 E46 -E47 E47 -E44 E44 -E43 E43 -E48 E48 -E49 E49 -E51 E51 -E52 E52 -E69 E69 -E70 E70 -E71 E71 E72 -E72 E73 -E73 -E74 E74 504569022 -504569022"/>
-    
-    <taz id="fh_education" edges="-721302669#2 -772719711#0 504569020#1"/>
-    <taz id="p_trainstation" edges="317240329"/>
+
+<!-- TAZ Pedistrian Destination -->    
+    <taz id="pasing_p_dropoff" edges="dropoff_lane1 dropoff_lane2"/>
+    <taz id="pasing_p_pickup" edges="pickup_lane1 pickup_lane2"/>
+        
+<!-- TAZ Car Destination -->
+    <taz id="pasing_c" edges="317240329"/>
     <taz id="mw_a96_out_out" edges="289441726"/>
     <taz id="mw_a96_out_in" edges="327070358"/>
     <taz id="mw_a96_in_out" edges="2597456"/>
@@ -11,9 +15,11 @@
     <taz id="mw_a99_in" edges="55717665"/>
     <taz id="martinsried" edges ="-384524948#0"/>
     <taz id="munich" edges="134693374#0 479885266 1061284895#2 -38076570#1"/>
+
+<!-- TAZ General -->    
+    <taz id="fh_education" edges="-721302669#2 -772719711#0 504569020#1"/>
     <taz id="germering" edges="-30240188"/>
        
-    <taz id="depot" edges="depot1 depot2 depot3 depot4"/>
-    ... further traffic assignment zones (districts) ...
+ <!--   <taz id="depot" edges="depot1 depot2 depot3 depot4"/> -->
 
 </tazs>

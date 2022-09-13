@@ -15,7 +15,7 @@ socketio = SocketIO(app)
 
 # True if user launches the app
 connection_established = False
-customer_arrvied = False
+customer_arrived = False
 # Set to a value that user selected in the app
 destination_set = ""
 
@@ -25,7 +25,7 @@ def createCust(time: int, custCount, pos:float, origin:str):
     traci.person.add(f"cust{custCount}",origin, pos, time+1, "DEFAULT_PEDTYPE")
     #Customer waits, Stage will be appended by different function
     traci.person.appendWaitingStage(f"cust{custCount}", 1, description='waiting', stopID='')
-    traci.person.setColor(f"cust{custCount}", (1, 1, 0))
+    traci.person.setColor(f"cust{custCount}", (1, 0.2, 0.2))
     return f"cust{custCount}"
 
 # If destination is choosen, function adds Stage to the called costumer
@@ -34,7 +34,8 @@ def createCustDest(custName: str, dest: str):
     return True
 
 def createShuttle(time, num):
-    traci.vehicle.add(f'taxiV{num}', 'depot', typeID='shuttle', depart=f'{time+2}', line='taxi')
+    traci.vehicle.add(f'taxiV{num}', 'depot_rou1', typeID='shuttle', depart=f'{time+2}', line='taxi')
+    traci.vehicle.setParkingAreaStop(f'taxiV{num}', "depot_park1", duration=1, flags=1)
     return f'taxiV{num}'
 
 def custInfo(custName: str):
@@ -48,46 +49,40 @@ def custInfo(custName: str):
         #if custVeh in traci.vehicle.getIDList():
         #    print(traci.vehicle.getDrivingDistance(custVeh, custDest[1], 0.0))
 
-def shuttleInfo(shuttle_dict: str):
+def shuttleInfo(shuttleCust: str, prt_shuttle):
+    cust_shuttle = ""
+    for shuttle_dict in prt_shuttle:
+        if traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.currentCustomers") == shuttleCust and traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.state") in ["1", "2", "3"]:
+            cust_shuttle = shuttle_dict["shuttle_name"]
+            break
 
     #Get distance to customer/destination
-    shuttleCust = traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.currentCustomers")
-    if shuttleCust != '':
-        shuttleCustDest = traci.person.getEdges(shuttleCust)
+    #shuttleCust = traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.currentCustomers")
+    if cust_shuttle != "":
+        if traci.vehicle.getParameter(cust_shuttle, "device.taxi.state") == "1":
+            x, y = traci.person.getPosition(shuttleCust)
+            return traci.vehicle.getDrivingDistance2D(cust_shuttle, x, y) 
+                
+        elif traci.vehicle.getParameter(cust_shuttle, "device.taxi.state") == "2":
+            shuttleCustDest = traci.person.getEdges(shuttleCust)
+            return traci.vehicle.getDrivingDistance(cust_shuttle, shuttleCustDest[len(shuttleCustDest)-1] , traci.person.getLanePosition(shuttleCust))            
 
 
+
+def shuttleReroute(shuttle_dict: str):
     #Reroute Vehicle to depot     
-    if not traci.vehicle.isStoppedParking(shuttle_dict["shuttle_name"]) and int(traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.state")) == 0:
-        try:
-            num = numpy.random.choice(numpy.arange(1,6), p=[0.25, 0.25, 0, 0.25, 0.25])
-            traci.vehicle.changeTarget(shuttle_dict["shuttle_name"], traci.lane.getEdgeID(traci.parkingarea.getLaneID(f"depot_park{num}")))
-            traci.vehicle.setParkingAreaStop(shuttle_dict["shuttle_name"], f"depot_park{num}", duration=999999, flags=1)
-        except traci.exceptions.TraCIException as e:
-            print(e)
-
-"""
- if shuttleName in traci.vehicle.getIDList():
-        shuttleCust = traci.vehicle.getParameter(shuttleName, "device.taxi.currentCustomers")
-        print(shuttleCust, end="")
-        if shuttleCust in traci.person.getIDList():
-            custDest = traci.person.getEdges(shuttleCust, )
-            print(traci.vehicle.getDrivingDistance(shuttleName, custDest[1], 0.0))
-"""            
-        
-#    if int(traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.state")) == 0 and str(shuttle_dict["reroute"]) == 'False':
-#        
-#        traci.vehicle.changeTarget(shuttle_dict["shuttle_name"], f"depot{num}")
-#        shuttle_dict["reroute"] = True
-#        print("Shuttle wurde gereroutet")
-#    if int(traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.state")) != 0 and str(shuttle_dict["reroute"]) == 'True':
-#        shuttle_dict["reroute"] = False
-#        print("Shuttle rerouting wurde aufgehoben")
-
+    try:
+        if not traci.vehicle.isStoppedParking(shuttle_dict["shuttle_name"]) and traci.vehicle.getParameter(shuttle_dict["shuttle_name"], "device.taxi.state") == "0":
+            num = numpy.random.choice(numpy.arange(1,6), p=[0.2, 0.2, 0.2, 0.2, 0.2])
+            traci.vehicle.changeTarget(shuttle_dict["shuttle_name"], traci.lane.getEdgeID(traci.parkingarea.getLaneID(f"depot_park1")))
+            traci.vehicle.setParkingAreaStop(shuttle_dict["shuttle_name"], f"depot_park1", duration=999999, flags=1)
+    except traci.exceptions.TraCIException as e:
+        print(e)
 
 
 originList = ["-E65", "-E46", "E42", "-E55", "E57", "E40", "-E39.532", "-E69", "721302669#2", "-407581698#2", "407568055#4", "504565992#2"]
 freihamLiving = ["-E65", "E65", "-E45", "E45", "-E46", "E46", "-E47", "E47", "-E44", "E44", "-E43", "E43", "-E48", "E48", "-E49", "E49", "-E51", "E51", "-E52", "E52", "-E69", "E69", "-E70", "E70", "-E71", "E71", "E72", "-E72", "E73", "-E73", "-E74", "E74", "504569022", "-504569022"]
-destList = ["E39", "-721302669#2", "-513657853#0", "143578411#1"]
+destList = ["E39", "-721302669#2", "-513657853#0", "E31"]
 
 # END of functions & variables related to SUMO simulation
 
@@ -96,6 +91,7 @@ destList = ["E39", "-721302669#2", "-513657853#0", "143578411#1"]
 def start_sumo_background_task():
     global connection_established
     global destination_set
+    global customer_arrived
 
     if 'SUMO_HOME' in os.environ:
         tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -105,7 +101,8 @@ def start_sumo_background_task():
 
     sumoBinary = "C:\Program Files (x86)\Eclipse\Sumo\\bin\sumo-gui"
     sumoCmd = [sumoBinary, "-c", "..\SUMOSIM\\test.sumocfg", "--tripinfo-output", "tripinfos.xml",
-        "--device.taxi.dispatch-algorithm", "greedy", "--start", "true" , "--ignore-route-errors", "--device.taxi.idle-algorithm=randomCircling"]
+        "--device.taxi.dispatch-algorithm=greedy", "--start", "true" , "--ignore-route-errors", "--device.taxi.idle-algorithm=randomCircling",
+        "--begin=30000", "--collision.action=none"]
 
     traci.start(sumoCmd)
     step = 0
@@ -124,60 +121,62 @@ def start_sumo_background_task():
             customer_info["dest_set"] = False
             managed_cust.append(customer_info)
             connection_established = False
-            customer_arrvied = False
+            customer_arrived = False
         if destination_set != '':
-            print("destination_set: ", destination_set)
-            createCustDest(managed_cust[0]["cust_name"], destination_set)
-            managed_cust[0]["dest_set"] = True
+            for i in range(len(managed_cust)):
+                if "Mobil" in managed_cust[i]["cust_name"]:
+                    managed_cust[i]["dest_set"] = True
+                    createCustDest(managed_cust[i]["cust_name"], destination_set)
             destination_set = ''
         else:
             for cust_info in managed_cust:
                 if not cust_info["dest_set"]:
-                    #print(cust_info)
                     traci.person.appendWaitingStage(cust_info["cust_name"], 1, description='waiting', stopID='')
-
 
         if step%10 == 0:
             for shuttle_info in prt_shuttle:
-                shuttleInfo(shuttle_info)   
-                  
+                shuttleReroute(shuttle_info)   
+            
             for cust_info in managed_cust:
                 if cust_info["cust_name"] not in all_cust:
-                    print("Customer" + cust_info["cust_name"] + "has arrived and is deleted")
-                    if "Mobil" in cust_info["cust_name"]:
-                        customer_arrvied = True 
-                    managed_cust.remove(cust_info)  
+                    managed_cust.remove(cust_info)
+                    customer_arrived = True
+                    data = dict()
+                    data["customerArrived"] = customer_arrived
+                    socketio.emit("customer_arrived", data)
+                    print("Customer " + cust_info["cust_name"] + " arrived and was deleted.")
+                    continue
+                
+                if cust_info["dest_set"]:
+                    cust_dest = traci.person.getEdges(cust_info["cust_name"])
+                    if traci.person.getLaneID(cust_info["cust_name"]) != cust_dest[len(cust_dest)-1]:
+                        deg = traci.person.getAngle(cust_info["cust_name"])
+                        x, y = traci.person.getPosition(cust_info["cust_name"])
+                        lon, lat = traci.simulation.convertGeo(x, y)
+                        dist = shuttleInfo(cust_info["cust_name"], prt_shuttle)
+                        data = dict()
+                        data["latitude"] = lat
+                        data["longitude"] = lon
+                        data["degree"] = deg
+                        data["dist_to_arrival"] = dist
+                        print("Data that should be sent: ",  data)
+                        socketio.emit("track_vehicle", data)
 
-                elif cust_info["dest_set"]:
-                    if traci.person.getRemainingStages(cust_info["cust_name"]) > 1:
-                        cust_dest = traci.person.getEdges(cust_info["cust_name"])
-                        print("cust_dest", cust_dest)
-                        if traci.person.getLaneID(cust_info["cust_name"]) != cust_dest[len(cust_dest)-1]:
-                            degree = traci.person.getAngle(managed_cust[0]["cust_name"])
-                            x, y = traci.person.getPosition(managed_cust[0]["cust_name"])
-                            lon, lat = traci.simulation.convertGeo(x, y)
-                            data = dict()
-                            data["latitude"] = lat
-                            data["longitude"] = lon
-                            data["degree"] = degree
-                            print("Data that should be sent -> ", "longitude:", lon, "latitude:", lat, "degree:", degree)
-                            socketio.emit("track_vehicle", data)
-
-            if step == 20:
-                for i in range(1, 2):
-                    prt_temp = dict()
-                    prt_temp["shuttle_name"] = createShuttle(step, count)
-                    prt_temp["reroute"] = False
-                    prt_shuttle.append(prt_temp)
-                    count += 1
-            if step == 21:
-                for i in range(1, 5):
-                    customer_info = dict()
-                    customer_info["cust_name"] = createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], )
-                    createCustDest(customer_info["cust_name"] , destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
-                    customer_info["dest_set"] = True
-                    managed_cust.append(customer_info)
-                    count += 1
+        if step == 20:
+            for i in range(1, 2):
+                prt_temp = dict()
+                prt_temp["shuttle_name"] = createShuttle(step, count)
+                prt_temp["reroute"] = False
+                prt_shuttle.append(prt_temp)
+                count += 1
+        if step == 21:
+            for i in range(1, 5):
+                customer_info = dict()
+                customer_info["cust_name"] = createCust(step, count, 0, freihamLiving[numpy.random.randint(0, 34)], )
+                createCustDest(customer_info["cust_name"] , destList[numpy.random.choice(numpy.arange(0,4), p=[0.1, 0.1, 0.1, 0.7])])
+                customer_info["dest_set"] = True
+                #managed_cust.append(customer_info)
+                count += 1
         step += 1
 
     traci.close()

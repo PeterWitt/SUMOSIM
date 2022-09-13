@@ -1,19 +1,36 @@
 <additional>
-    <vType id="shuttle" vClass="taxi" accel="2.5" decel="4.5" sigma="0" length="2.5" width="1" maxSpeed="70" color="1,0,0">
+    <vType id="shuttle" vClass="taxi" accel="2.5" decel="4.5" carFollowModel="Krauss" sigma="0" tau="0.5" length="2.5" width="1" maxSpeed="70" color="1,0,0">
         <param key="has.taxi.device" value="true"/>
         <param key="device.taxi.pickUpDuration" value="0"/>
-        <param key="device.taxi.dropOffDuration" value="60"/>
-        <param key="device.taxi.parking" value="false"/>
+        <param key="device.taxi.dropOffDuration" value="20"/>
+        <param key="device.taxi.parking" value="true"/>
+        <param key="device.taxi.end" value="100000"/>
     </vType>
 
     <routes>
-        <route id="depot" color="1,1,0" edges="depot2"/>
-    </routes>
+        <route id="depot_rou1" color="1,1,0" edges="depot1"/>
+       <!--
+        <route id="depot_rou2" color="1,1,0" edges="depot2"/>
+        <route id="depot_rou3" color="1,1,0" edges="depot3"/>
+        <route id="depot_rou4" color="1,1,0" edges="depot4"/>
+        <route id="depot_rou5" color="1,1,0" edges="depot5"/>
+        <route id="depot_rou6" color="1,1,0" edges="depot6"/>
+        --> 
+    </routes> 
+    
+    <parkingArea id="depot_park1" lane="depot1_0" startPos="1" roadsideCapacity="500" angle="90"/>
+   
+<!--
+    <busStop id="dropoff_lane1_1_station" lane="dropoff_lane1_1" startPos="0.5" endPos="37" personCapacity="50"/>
+    <busStop id="dropoff_lane2_1_station" lane="dropoff_lane2_1" startPos="0.5" endPos="38" personCapacity="50"/>
 
-    <parkingArea id="depot_park2" lane="depot2_0" startPos="1" roadsideCapacity="20" angle="90"/>
-    <parkingArea id="depot_park4" lane="depot4_0" startPos="1" roadsideCapacity="20" angle="90"/>
-    <parkingArea id="depot_park5" lane="depot5_0" startPos="1" roadsideCapacity="20" angle="90"/>
-    <parkingArea id="depot_park1" lane="depot1_0" startPos="1" roadsideCapacity="20" angle="90"/>
+
+    <instantInductionLoop id="E6.86_sens" lane="E6.86_0" pos="3954" file="e1i_4.xml"/>
+    <instantInductionLoop id="dropoff_lane1_sens_in" lane="dropoff_lane1_1" pos="0.00" />
+    <instantInductionLoop id="dropoff_lane1_sens_out" lane="dropoff_lane1_1" pos="37.5" />
+    <instantInductionLoop id="dropoff_lane2_sens_in" lane="dropoff_lane2_1" pos="0.00" />
+    <instantInductionLoop id="dropoff_lane2_sens_out" lane="dropoff_lane2_1" pos="38" />
+-->
 
 </additional>
 
